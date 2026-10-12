@@ -1,0 +1,190 @@
+{
+  "createdAt": "2026-10-12T06:29:28.176Z",
+  "policy": "linear-preview-v1",
+  "rules": {
+    "width": 10,
+    "height": 20,
+    "randomizer": "7-bag",
+    "rotation": "horizontal-kicks-v1",
+    "preview": 3,
+    "hold": false,
+    "gravity": "paused-during-ai-decision"
+  },
+  "config": {
+    "games": 12,
+    "startSeed": 100,
+    "maxPieces": 5000,
+    "transport": "direct",
+    "provider": "builtin",
+    "options": {
+      "depth": 1,
+      "beam": 8,
+      "weights": {
+        "height": -0.51,
+        "lines": 0.76,
+        "holes": -1.8,
+        "bumpiness": -0.184,
+        "maxHeight": -0.1,
+        "wells": -0.05
+      }
+    }
+  },
+  "games": 12,
+  "completed": 2,
+  "truncated": 10,
+  "meanLines": 1749.8333333333333,
+  "medianLines": 1996.5,
+  "stdLines": 579.5830528505084,
+  "minLines": 387,
+  "maxLines": 1999,
+  "atLeast1000": 10,
+  "interpretation": "Observed mean is a lower bound on full-game mean; capped games are not natural completions.",
+  "targetEvidence": "not-demonstrated",
+  "meanDecisionMs": 0.04407148041879637,
+  "records": [
+    {
+      "seed": 100,
+      "lines": 387,
+      "score": 875456,
+      "pieces": 997,
+      "status": "completed",
+      "reason": "top-out",
+      "decisions": 997,
+      "meanDecisionMs": 0.06006168505516551,
+      "meanComputeMs": 0.05863540621865606,
+      "seconds": 0.08462429999999997
+    },
+    {
+      "seed": 101,
+      "lines": 1996,
+      "score": 22395562,
+      "pieces": 5000,
+      "status": "truncated",
+      "reason": "piece-limit",
+      "decisions": 5000,
+      "meanDecisionMs": 0.04702567999999993,
+      "meanComputeMs": 0.046198960000000275,
+      "seconds": 0.31099540000000003
+    },
+    {
+      "seed": 102,
+      "lines": 1999,
+      "score": 22405618,
+      "pieces": 5000,
+      "status": "truncated",
+      "reason": "piece-limit",
+      "decisions": 5000,
+      "meanDecisionMs": 0.04387348000000053,
+      "meanComputeMs": 0.043137479999999895,
+      "seconds": 0.28534980000000004
+    },
+    {
+      "seed": 103,
+      "lines": 1998,
+      "score": 22370140,
+      "pieces": 5000,
+      "status": "truncated",
+      "reason": "piece-limit",
+      "decisions": 5000,
+      "meanDecisionMs": 0.04312293999999972,
+      "meanComputeMs": 0.04222051999999996,
+      "seconds": 0.27594389999999996
+    },
+    {
+      "seed": 104,
+      "lines": 642,
+      "score": 2368698,
+      "pieces": 1630,
+      "status": "completed",
+      "reason": "top-out",
+      "decisions": 1630,
+      "meanDecisionMs": 0.04321300613496533,
+      "meanComputeMs": 0.04253650306748413,
+      "seconds": 0.08862189999999998
+    },
+    {
+      "seed": 105,
+      "lines": 1996,
+      "score": 22337692,
+      "pieces": 5000,
+      "status": "truncated",
+      "reason": "piece-limit",
+      "decisions": 5000,
+      "meanDecisionMs": 0.04969787999999885,
+      "meanComputeMs": 0.048854720000000997,
+      "seconds": 0.3203616999999999
+    },
+    {
+      "seed": 106,
+      "lines": 1997,
+      "score": 22460988,
+      "pieces": 5000,
+      "status": "truncated",
+      "reason": "piece-limit",
+      "decisions": 5000,
+      "meanDecisionMs": 0.04382717999999995,
+      "meanComputeMs": 0.04314301999999771,
+      "seconds": 0.27670079999999986
+    },
+    {
+      "seed": 107,
+      "lines": 1992,
+      "score": 22658028,
+      "pieces": 5000,
+      "status": "truncated",
+      "reason": "piece-limit",
+      "decisions": 5000,
+      "meanDecisionMs": 0.0418167399999988,
+      "meanComputeMs": 0.041157020000001515,
+      "seconds": 0.26388270000000014
+    },
+    {
+      "seed": 108,
+      "lines": 1999,
+      "score": 22696636,
+      "pieces": 5000,
+      "status": "truncated",
+      "reason": "piece-limit",
+      "decisions": 5000,
+      "meanDecisionMs": 0.04142843999999782,
+      "meanComputeMs": 0.0408236799999982,
+      "seconds": 0.2633822
+    },
+    {
+      "seed": 109,
+      "lines": 1994,
+      "score": 22404968,
+      "pieces": 5000,
+      "status": "truncated",
+      "reason": "piece-limit",
+      "decisions": 5000,
+      "meanDecisionMs": 0.04259010000000317,
+      "meanComputeMs": 0.04195581999999922,
+      "seconds": 0.27244360000000006
+    },
+    {
+      "seed": 110,
+      "lines": 1999,
+      "score": 22587508,
+      "pieces": 5000,
+      "status": "truncated",
+      "reason": "piece-limit",
+      "decisions": 5000,
+      "meanDecisionMs": 0.042958719999997536,
+      "meanComputeMs": 0.04231653999999935,
+      "seconds": 0.272924
+    },
+    {
+      "seed": 111,
+      "lines": 1999,
+      "score": 22625098,
+      "pieces": 5000,
+      "status": "truncated",
+      "reason": "piece-limit",
+      "decisions": 5000,
+      "meanDecisionMs": 0.041465060000004265,
+      "meanComputeMs": 0.04078482000000313,
+      "seconds": 0.26336360000000014
+    }
+  ]
+}

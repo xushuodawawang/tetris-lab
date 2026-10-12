@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101522">
+  <meta name="description" content="一个用 JavaScript 和 HTML5 构建的俄罗斯方块游戏。旋转、落下，让每一块恰好归位。">
+  <title>Tetris Lab · 俄罗斯方块</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/src/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#game-shell">跳到游戏</a>
+  <div class="page">
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Tetris Lab 首页">
+        <svg class="brand-mark" viewBox="0 0 36 36" aria-hidden="true"><g fill="currentColor"><rect x="2" y="5" width="9" height="9" rx="2"/><rect x="13" y="5" width="9" height="9" rx="2"/><rect x="24" y="5" width="9" height="9" rx="2"/><rect x="13" y="16" width="9" height="9" rx="2"/></g><rect x="13" y="27" width="9" height="4" rx="1" fill="#f5cb76"/></svg>
+        <span translate="no">Tetris<span class="brand-light">Lab</span></span>
+      </a>
+      <div class="topbar-actions">
+        <button class="quiet-button" id="help-button" type="button"><span class="help-icon" aria-hidden="true">?</span><span>操作说明</span></button>
+        <button class="icon-button" id="sound-button" type="button" aria-label="开启音效" aria-pressed="false" title="开启音效">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path id="sound-wave" d="m16 9 5 6m0-6-5 6"/></svg>
+        </button>
+        <button class="icon-button" id="settings-button" type="button" aria-label="游戏设置" title="游戏设置"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 3-.7 2.5-2.2 1.3-2.5-.6L2 9l1.8 1.9v2.2L2 15l1.6 2.8 2.5-.6 2.2 1.3L9 21h6l.7-2.5 2.2-1.3 2.5.6L22 15l-1.8-1.9v-2.2L22 9l-1.6-2.8-2.5.6-2.2-1.3L15 3H9Z"/><circle cx="12" cy="12" r="3"/></svg></button>
+      </div>
+    </header>
+
+    <main id="main">
+      <div class="game-heading">
+        <div><div class="heading-kicker"><span class="tiny-piece" aria-hidden="true"></span>经典，永不过时</div><h1>俄罗斯方块<span class="title-dot">.</span></h1></div>
+        <div class="mode-picker"><label class="visually-hidden" for="mode-select">游戏模式</label><select id="mode-select" name="mode"><option value="human">人类模式</option><option value="ai">AI 模式</option></select><button class="quiet-button benchmark-trigger" id="benchmark-button" type="button">自动评测</button></div>
+      </div>
+
+      <div class="game-layout">
+        <aside class="score-column" aria-label="游戏统计">
+          <section class="score-panel">
+            <div class="section-label"><h2>本局得分</h2><span class="small-square" aria-hidden="true"></span></div>
+            <div class="score-value" id="score">000000</div>
+            <div class="score-divider"></div>
+            <div class="stats-pair"><div><span class="stat-label">已消除</span><strong id="lines">0<span class="stat-unit">行</span></strong></div><div><span class="stat-label">当前等级</span><strong id="level">01</strong></div></div>
+            <div class="progress-label"><span>距离下一级</span><span id="level-progress-label">0 / 10 行</span></div>
+            <div class="progress-track" role="progressbar" id="level-progress" aria-label="当前等级消行进度" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0"><div id="level-progress-fill"></div></div>
+          </section>
+          <section class="best-panel"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3h8v7a4 4 0 0 1-8 0V3Zm0 2H4v3a4 4 0 0 0 4 4m8-7h4v3a4 4 0 0 1-4 4m-4 2v6m-4 1h8"/></svg><div><h2>历史最高</h2><strong id="best-score">000000</strong></div><span class="best-caption">保存在此设备</span></section>
+          <div class="session-detail"><span>游戏时间</span><span id="elapsed">00:00</span></div>
+          <div class="session-detail"><span>已落方块</span><span id="pieces">0</span></div>
+          <div class="tip"><span class="tip-star" aria-hidden="true">✦</span><p>留一点空间给下一块。<br><span>平整的堆叠，是高分的开始。</span></p></div>
+        </aside>
+
+        <section class="play-column" aria-label="俄罗斯方块游戏">
+          <div class="board-topline"><span id="game-status"><i class="status-dot" aria-hidden="true"></i>准备就绪</span><span>10 × 20</span></div>
+          <div class="game-shell" id="game-shell" tabindex="0" role="region" aria-label="游戏棋盘" aria-describedby="board-description">
+            <canvas id="board" width="600" height="1200" role="img" aria-label="俄罗斯方块棋盘，10 列 20 行">请使用支持 HTML5 Canvas 的浏览器。</canvas>
+            <div class="board-overlay" id="board-overlay">
+              <div class="overlay-emblem" id="overlay-emblem" aria-hidden="true"><svg viewBox="0 0 72 56"><g fill="#7ad7f0"><rect x="4" y="4" width="19" height="19" rx="3"/><rect x="26" y="4" width="19" height="19" rx="3"/><rect x="48" y="4" width="19" height="19" rx="3"/><rect x="26" y="26" width="19" height="19" rx="3"/></g></svg></div>
+              <h2 id="overlay-title">下一块，交给你。</h2>
+              <p id="overlay-copy">旋转、移动，让方块恰好归位。</p>
+              <button class="primary-button" id="start-button" type="button"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m6 3 10 7-10 7V3Z"/></svg><span id="start-label">开始游戏</span></button>
+              <span class="overlay-shortcut" id="overlay-shortcut">也可以按 Enter 开始</span>
+            </div>
+            <div class="clear-toast" id="clear-toast" aria-hidden="true"></div>
+          </div>
+          <p class="visually-hidden" id="board-description">上键旋转，下键加速，左右键移动，空格直接落下，P 暂停。开始游戏后，键盘焦点将移到棋盘。</p>
+          <div class="board-actions"><button class="secondary-button" id="pause-button" type="button" disabled><span id="pause-symbol" aria-hidden="true">Ⅱ</span><span id="pause-label">暂停</span><kbd>P</kbd></button><button class="secondary-button" id="restart-button" type="button" disabled><span aria-hidden="true">↻</span>重新开始<kbd>R</kbd></button></div>
+          <div class="touch-controls" aria-label="触控操作"><button data-action="left" type="button" aria-label="向左移动">←</button><button data-action="rotate" type="button" aria-label="顺时针旋转">↻</button><button data-action="right" type="button" aria-label="向右移动">→</button><button data-action="down" type="button" aria-label="加速下落">↓</button><button data-action="drop" class="touch-drop" type="button">直接落下</button></div>
+          <div class="board-caption"><span class="key-indicator" aria-hidden="true"></span><span>专注当下，一块一块来。</span></div>
+        </section>
+
+        <aside class="guide-column" aria-label="预览与操作">
+          <section class="next-panel"><div class="section-label"><h2>接下来</h2><span class="next-count">3 块预览</span></div><div class="next-list"><div class="next-piece first"><canvas id="next-0" width="240" height="128" role="img" aria-label="下一个方块"></canvas><span class="next-badge">下一块</span></div><div class="next-piece"><canvas id="next-1" width="240" height="96" role="img" aria-label="第二个方块"></canvas></div><div class="next-piece"><canvas id="next-2" width="240" height="96" role="img" aria-label="第三个方块"></canvas></div></div></section>
+          <section class="controls-panel" id="human-guide"><h2>指尖上的节奏</h2><dl class="key-list"><div><dt><kbd>←</kbd><kbd>→</kbd></dt><dd>左右移动</dd></div><div><dt><kbd>↑</kbd></dt><dd>旋转方块</dd></div><div><dt><kbd>↓</kbd></dt><dd>加速下落</dd></div><div><dt><kbd class="space-key">Space</kbd></dt><dd>直接落下</dd></div></dl></section>
+          <section class="ai-panel" id="ai-panel" hidden aria-label="AI 控制">
+            <div class="section-label"><h2>AI 控制台</h2><span id="ai-connection" class="connection-label">未连接</span></div>
+            <label class="ai-field" for="ai-provider"><span>算法程序</span><select id="ai-provider" name="provider"><option value="builtin">JavaScript AI</option><option value="python">Python AI</option></select></label>
+            <label class="ai-field" for="ai-depth"><span>搜索深度</span><select id="ai-depth" name="depth"><option value="1">单步搜索</option><option value="2" selected>两步前瞻</option><option value="3">三步前瞻</option></select></label>
+            <label class="ai-speed-label" for="ai-speed">播放速度 <span id="ai-speed-value">3 块 / 秒</span></label><input id="ai-speed" name="speed" type="range" min="1" max="20" value="3" aria-label="AI 每秒落块数">
+            <div class="ai-metrics"><div><span>决策耗时</span><strong id="ai-latency">—</strong></div><div><span>候选落点</span><strong id="ai-candidates">—</strong></div><div><span>空洞数量</span><strong id="ai-holes">—</strong></div><div><span>最高堆叠</span><strong id="ai-height">—</strong></div></div>
+            <p id="ai-message" role="status" aria-live="polite">连接后，AI 会自动选择落点。</p>
+            <button id="ai-reconnect" class="secondary-button" type="button">重新连接</button>
+            <details class="protocol-details"><summary>查看 AI 通信</summary><pre id="ai-protocol">等待一次决策。</pre></details>
+          </section>
+          <div class="scoring-note"><span class="scoring-symbol" aria-hidden="true">▤</span><div><strong>一次消除，更多奖励</strong><p>1 / 2 / 3 / 4 行<br>100 / 300 / 500 / 800 分 × 等级</p></div></div>
+        </aside>
+      </div>
+    </main>
+
+    <footer><span>用方块，找回一点秩序。</span><span translate="no">Tetris Lab <span class="footer-version">v0.2</span></span></footer>
+  </div>
+  <div class="visually-hidden" id="announcement" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <dialog id="settings-dialog" aria-labelledby="settings-title">
+    <div class="dialog-heading"><h2 id="settings-title">游戏设置</h2><button class="icon-button" data-close="settings-dialog" aria-label="关闭游戏设置" type="button">×</button></div>
+    <p class="dialog-copy">调整你的游戏体验。</p>
+    <label class="setting-row" for="ghost-setting"><span><strong>落点提示</strong><small>用轮廓显示方块最终落下的位置</small></span><input id="ghost-setting" name="ghost" type="checkbox" checked></label>
+    <label class="setting-row" for="grid-setting"><span><strong>棋盘网格</strong><small>更容易看清每一格的位置</small></span><input id="grid-setting" name="grid" type="checkbox" checked></label>
+    <label class="setting-row" for="sound-setting"><span><strong>游戏音效</strong><small>落下与消行时播放轻量提示音</small></span><input id="sound-setting" name="sound" type="checkbox"></label>
+    <button class="primary-button dialog-done" data-close="settings-dialog" type="button">完成设置</button>
+  </dialog>
+  <dialog id="help-dialog" aria-labelledby="help-title">
+    <div class="dialog-heading"><h2 id="help-title">操作说明</h2><button class="icon-button" data-close="help-dialog" aria-label="关闭操作说明" type="button">×</button></div>
+    <p class="dialog-copy">将方块排满一行，就能消除这一行。<br>方块堆到顶部、无法生成新方块时，游戏结束。</p>
+    <dl class="help-keys"><div><dt>← / →</dt><dd>左右移动</dd></div><div><dt>↑</dt><dd>顺时针旋转</dd></div><div><dt>↓</dt><dd>按住加速，每格加 1 分</dd></div><div><dt>Space</dt><dd>直接落下，每格加 2 分</dd></div><div><dt>P / Esc</dt><dd>暂停或继续</dd></div><div><dt>R</dt><dd>重新开始</dd></div></dl>
+    <p class="help-note">每消除 10 行升一级，下落速度随等级增加。切换到其它页面时，游戏会自动暂停。</p>
+    <button class="primary-button dialog-done" data-close="help-dialog" type="button">知道了</button>
+  </dialog>
+  <dialog id="restart-dialog" aria-labelledby="restart-title">
+    <div class="dialog-heading"><h2 id="restart-title">开始新的一局？</h2></div><p class="dialog-copy">本局进度将清空，历史最高分会保留。</p><div class="dialog-actions"><button class="secondary-button" data-close="restart-dialog" type="button" autofocus>继续本局</button><button class="primary-button" id="confirm-restart" type="button">重新开始</button></div>
+  </dialog>
+  <dialog id="mode-dialog" aria-labelledby="mode-title"><div class="dialog-heading"><h2 id="mode-title">切换游戏模式？</h2></div><p class="dialog-copy">切换后开始新的一局，当前进度将清空。两种模式分别保存最高分。</p><div class="dialog-actions"><button class="secondary-button" data-close="mode-dialog" type="button" autofocus>保留本局</button><button class="primary-button" id="confirm-mode" type="button">切换模式</button></div></dialog>
+  <dialog id="benchmark-dialog" class="benchmark-dialog" aria-labelledby="benchmark-title">
+    <div class="dialog-heading"><h2 id="benchmark-title">AI 自动评测</h2><button class="icon-button" data-close="benchmark-dialog" type="button" aria-label="关闭自动评测">×</button></div>
+    <p class="dialog-copy">在 10 × 20 棋盘上自动运行，分别记录每局消行数。评测在后台继续，可以关闭此窗口。</p>
+    <form id="benchmark-form">
+      <div class="benchmark-fields"><label for="benchmark-games">局数<select id="benchmark-games" name="games"><option value="10">10 局试跑</option><option value="200" selected>200 局正式评测</option></select></label><label for="benchmark-limit">每局最多落块<select id="benchmark-limit" name="limit"><option value="3000">3000 块</option><option value="5000" selected>5000 块</option><option value="10000">10000 块</option><option value="20000">20000 块</option></select></label><label for="benchmark-depth">搜索深度<select id="benchmark-depth" name="depth"><option value="1">单步搜索</option><option value="2" selected>两步前瞻</option><option value="3">三步前瞻</option></select></label><label for="benchmark-provider">算法程序<select id="benchmark-provider" name="provider"><option value="builtin">JavaScript AI</option><option value="python">Python AI</option></select></label></div>
+      <p class="benchmark-note">达到落块上限的局会标为“截断”，其消行数是整局表现的下界。不会在达到 1000 行时提前结束。正式种子从 10000 开始。</p>
+      <div class="dialog-actions"><button id="benchmark-cancel" class="secondary-button" type="button" hidden>停止评测</button><button id="benchmark-start" class="primary-button" type="submit">开始评测</button></div>
+    </form>
+    <div id="benchmark-status" role="status" aria-live="polite">尚未开始评测。</div>
+    <progress id="benchmark-progress" max="200" value="0" aria-label="自动评测进度" hidden></progress>
+    <div id="benchmark-result" hidden><div class="benchmark-results"><div><span>平均消行数</span><strong id="benchmark-mean">—</strong></div><div><span>中位数</span><strong id="benchmark-median">—</strong></div><div><span>自然结束</span><strong id="benchmark-completed">—</strong></div><div><span>截断局数</span><strong id="benchmark-truncated">—</strong></div></div><p id="benchmark-interpretation"></p><div class="dialog-actions"><button id="download-json" class="secondary-button" type="button">下载 JSON</button><button id="download-csv" class="secondary-button" type="button">下载 CSV</button></div></div>
+  </dialog>
+</body>
+</html>

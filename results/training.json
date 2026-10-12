@@ -1,0 +1,182 @@
+{
+  "seed": 2026,
+  "trainingSeeds": [
+    100,
+    101,
+    102
+  ],
+  "population": 6,
+  "generations": 3,
+  "maxPieces": 1200,
+  "depth": 1,
+  "weights": {
+    "height": -0.5903400076031858,
+    "lines": 0.9672387789126032,
+    "holes": -1.5258653335798484,
+    "bumpiness": -0.12762167820851686,
+    "maxHeight": -0.07069963021033228,
+    "wells": -0.055019489643094444
+  },
+  "history": [
+    {
+      "generation": 0,
+      "best": {
+        "weights": {
+          "height": -0.5903400076031858,
+          "lines": 0.9672387789126032,
+          "holes": -1.5258653335798484,
+          "bumpiness": -0.12762167820851686,
+          "maxHeight": -0.07069963021033228,
+          "wells": -0.055019489643094444
+        },
+        "fitness": 478.3333333333333,
+        "records": [
+          {
+            "seed": 100,
+            "lines": 478,
+            "score": 1314330,
+            "pieces": 1200,
+            "status": "truncated",
+            "reason": "piece-limit",
+            "decisions": 1200,
+            "meanDecisionMs": 0.046407000000000045,
+            "meanComputeMs": 0.04553874999999901,
+            "seconds": 0.07245299999999998
+          },
+          {
+            "seed": 101,
+            "lines": 479,
+            "score": 1374738,
+            "pieces": 1200,
+            "status": "truncated",
+            "reason": "piece-limit",
+            "decisions": 1200,
+            "meanDecisionMs": 0.046029833333335074,
+            "meanComputeMs": 0.0452979166666673,
+            "seconds": 0.07519400000000008
+          },
+          {
+            "seed": 102,
+            "lines": 478,
+            "score": 1329732,
+            "pieces": 1200,
+            "status": "truncated",
+            "reason": "piece-limit",
+            "decisions": 1200,
+            "meanDecisionMs": 0.04512441666666594,
+            "meanComputeMs": 0.04443708333333689,
+            "seconds": 0.06886029999999994
+          }
+        ]
+      },
+      "meanFitness": 472.5555555555556
+    },
+    {
+      "generation": 1,
+      "best": {
+        "weights": {
+          "height": -0.5903400076031858,
+          "lines": 0.9672387789126032,
+          "holes": -1.5258653335798484,
+          "bumpiness": -0.12762167820851686,
+          "maxHeight": -0.07069963021033228,
+          "wells": -0.055019489643094444
+        },
+        "fitness": 478.3333333333333,
+        "records": [
+          {
+            "seed": 100,
+            "lines": 478,
+            "score": 1314330,
+            "pieces": 1200,
+            "status": "truncated",
+            "reason": "piece-limit",
+            "decisions": 1200,
+            "meanDecisionMs": 0.043523749999998626,
+            "meanComputeMs": 0.04283733333333563,
+            "seconds": 0.0668659
+          },
+          {
+            "seed": 101,
+            "lines": 479,
+            "score": 1374738,
+            "pieces": 1200,
+            "status": "truncated",
+            "reason": "piece-limit",
+            "decisions": 1200,
+            "meanDecisionMs": 0.044174333333332545,
+            "meanComputeMs": 0.043494833333333344,
+            "seconds": 0.06651150000000007
+          },
+          {
+            "seed": 102,
+            "lines": 478,
+            "score": 1329732,
+            "pieces": 1200,
+            "status": "truncated",
+            "reason": "piece-limit",
+            "decisions": 1200,
+            "meanDecisionMs": 0.04490841666666957,
+            "meanComputeMs": 0.04425574999999924,
+            "seconds": 0.06739139999999998
+          }
+        ]
+      },
+      "meanFitness": 468.6111111111111
+    },
+    {
+      "generation": 2,
+      "best": {
+        "weights": {
+          "height": -0.5903400076031858,
+          "lines": 0.9672387789126032,
+          "holes": -1.5258653335798484,
+          "bumpiness": -0.12762167820851686,
+          "maxHeight": -0.07069963021033228,
+          "wells": -0.055019489643094444
+        },
+        "fitness": 478.3333333333333,
+        "records": [
+          {
+            "seed": 100,
+            "lines": 478,
+            "score": 1314330,
+            "pieces": 1200,
+            "status": "truncated",
+            "reason": "piece-limit",
+            "decisions": 1200,
+            "meanDecisionMs": 0.04352725000000343,
+            "meanComputeMs": 0.04289333333332593,
+            "seconds": 0.06690139999999974
+          },
+          {
+            "seed": 101,
+            "lines": 479,
+            "score": 1374738,
+            "pieces": 1200,
+            "status": "truncated",
+            "reason": "piece-limit",
+            "decisions": 1200,
+            "meanDecisionMs": 0.04274424999999496,
+            "meanComputeMs": 0.04214516666666744,
+            "seconds": 0.06459810000000016
+          },
+          {
+            "seed": 102,
+            "lines": 478,
+            "score": 1329732,
+            "pieces": 1200,
+            "status": "truncated",
+            "reason": "piece-limit",
+            "decisions": 1200,
+            "meanDecisionMs": 0.04225058333333019,
+            "meanComputeMs": 0.04165066666666462,
+            "seconds": 0.06461190000000033
+          }
+        ]
+      },
+      "meanFitness": 477.27777777777777
+    }
+  ],
+  "note": "Development seeds only. Do not select weights using the final test seeds."
+}

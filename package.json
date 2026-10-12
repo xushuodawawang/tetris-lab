@@ -1,0 +1,22 @@
+{
+  "name": "tetris-lab",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "HTML5 Tetris with independent WebSocket AI, genetic training and reproducible evaluation",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node --test tests/engine.test.js tests/ai.test.js tests/service.test.js",
+    "test:python": "node --test tests/python.test.js",
+    "evaluate": "node scripts/evaluate.js",
+    "train": "node scripts/train.js",
+    "ai:python": "python ai/python_bot.py"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "ws": "^8.22.0"
+  }
+}

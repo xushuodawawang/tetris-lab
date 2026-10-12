@@ -1,0 +1,12 @@
+{
+  "recordedAt": "2026-10-12T06:34:33.350Z",
+  "node": "v24.15.0",
+  "platform": "win32",
+  "arch": "x64",
+  "files": {
+    "src/engine.js": "889609d653ade7a2271af2b0ca619ff96316a4dbd621965dfadda41ffa0a29f9",
+    "src/protocol.js": "f84ebb84360c48d84e745c1057d11faf9d0e2053fe670b0df644ced8811be743",
+    "ai/search.js": "8b69a216bd1b67e940a1d669125f55e1cc325c96982dc7c5a56c5a6fff4c341b"
+  },
+  "note": "Hashes recorded after evaluation; policy and game rules were unchanged during the 200-game run."
+}
